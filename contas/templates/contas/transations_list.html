@@ -1,0 +1,23 @@
+{% extends 'contas/base.html' %}
+
+
+
+{% block content %}
+
+<h1>Listagem de Transacoes</h1>
+
+<ol>
+    {% for trans in transations %}
+    <li>
+        <h3>{{trans.descricao}}</h3>
+        <p>{{trans.valor}}   -   {{trans.categoria}}     - {{trans.data}}</p>
+        <p>{{trans.observacoes}}</p>    
+    {% endfor %}
+    </li>
+</ol>
+
+{% endblock %}
+
+
+
+ 

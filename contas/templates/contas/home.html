@@ -7,8 +7,59 @@
     <title>CONTAS HOME</title>
 </head>
 <body>
-    <h3>Seja Bem Home </h3>
+    <pre>
+        Usndo Template do jinja2 no Django
+def home(request):
+    data={}
+    data['now']=datetime.datetime.now()
+    print(data['now'])
+    data['transactions']=[
+        {'date':'12/04/2020-23:12:08','mount':1200,'name':'saidino','category':'admin'},
+        {'date':'10/07/2021-13:52:08','mount':100,'name':'hacker','category':'user'},
+        {'date':'22/01/2021-11:15:08','mount':1700,'name':'benny','category':'admin'},
+        {'date':'2/04/2020-21:32:08','mount':890,'name':'benildo','category':'admin'},
+        {'date':'12/04/2021-3:12:08','mount':120,'name':'joaquim','category':'admin'},
+        {'date':'12/04/2021-3:12:8','mount':1120,'name':'Claudia','category':'root'}
+        ]
+    
+    # posso passar esses dados como parametro e serem recebidos la no meu template Html
+    
+    return render(request, 'contas/home.html',data)
+        
+    </pre>
+    <h3>Seja Bem Home Time is {{now}} </h3>
 
-    AINDA NEM INSERI TANTO CODIGO HTML AQUI FALTA MUITA COISA
+    <h3>Lista das Transacoes</h3>
+    <table>
+        <tr>
+            <th>User Name</th>
+            <th>Category</th>
+            <th colspan="4">Date</th>
+            <th>Mount</th>
+            
+        </tr>
+            {%for trans in transactions%}
+            <tr>
+                <td>{{trans.name}}</td>
+                <td>{{trans.category}}</td>
+                <td  colspan="4">{{trans.date}}</td>
+                <td>
+                    {% if trans.mount > 120 %}
+                    <span class="red bold">{{trans.mount}}</span>
+                    {%else%}
+                    <span class="good">{{trans.mount}}</span>
+                    {%endif%}
+                </td>
+            </tr>
+            {%endfor %}
+    </table>
+
+    <style>
+        .red{color:rgb(223, 95, 148);}
+        .bold{size:12px; font-weight:bold}
+        .good{color:rgb(64, 138, 235);font-weight:lighter}
+
+
+    </style>
 </body>
 </html>
