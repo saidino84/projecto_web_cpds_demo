@@ -1,0 +1,35 @@
+{% extends 'contas/base.html' %}
+
+{% block title %}
+Nova Transacoa Addicione Aqui
+{% endblock %}
+
+{% block content %}
+
+<form method="post" action='#' id="form">
+    {% csrf_token %}
+    {{form.as_p}}
+
+    <button class='btn btn-primary' type="submit">Salvar </button>
+</form>
+<style>
+    #form-control{
+        color:blue;
+    }
+</style>
+<script>
+    var form =document.getElementById('form')
+    var dados=[]
+    for (var e in form.elements){
+        console.log(form[e])
+        var elem=document.getElementById(form[e].id)
+        if(elem != null)elem.setAttribute('class','form-control')
+
+
+        console.log(elem)
+        
+    }
+</script>
+{% endblock %}
+
+ 

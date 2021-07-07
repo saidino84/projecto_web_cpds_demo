@@ -159,3 +159,66 @@ class Transacao(models.Model):
     observacoes = models.TextField()
 ```
  Esta classe tem como ForeignKey categoria
+
+
+ # CRIANDIO FORMULARIOS NO HTML ATRAVES DOS CAMPOS DE MODELOS DE DJANGO
+ > para isso no app contas criarei um arquivo form.py 
+  > project/contas/form.py
+
+```py 
+    # ModelForm
+    # para criar django model precisamos importar ModelForm do django para 
+    # ele nos der todas as facilidades
+
+    from django.forms import ModelForm,TextInput
+    from contas.models import Transacao # Omodel TRansacao 'e o cara k quero fazer crude
+
+    class TransacaoForm(ModelForm):
+    class Meta:
+        model = Transacao
+        fields = ['data','descricao','valor','categoria','observacoes']
+
+        # atribuido html atributs para ser capturado com css/js
+        widgets={
+            'descricao':TextInput(attrs={'class':'form-control'}),
+            'valor':TextInput(attrs={'class':'form-control'}),
+            'data':TextInput(attrs={'class':'form-control'}),
+            'categoria':TextInput(attrs={'class':'form-control'}),
+            'observacoes':TextInput(attrs={'class':'form-control'})
+            
+            }
+ 
+ 
+        
+"""esse formulario exigira esses atributos obrigatorios o (modelo)
+
+data = models.DateTimeField()
+descricao = models.CharField(max_length=200)
+valor = models.DecimalField(max_digits=7,decimal_places=2) #decimal_place=> o nr de digitos que vem depois da virgula
+categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE)
+observacoes = models.TextField(null=True,blank=True) #campo nao obrigatorio
+
+
+""" 
+
+    # e Na minha view vou importar este formulario e retornar ele
+    # para o um arquivo conatas/templates/contas/form.html
+from .forms import TransacaoForm
+def nova_transacao(request):
+    form =TransacaoForm()
+    
+    return render(request, 'contas/form.html',{'form':form})
+
+
+```
+To show draw form in form.html
+just add :
+```html
+    <form method="post" action='#'>
+    {% csrf_token %}
+    {{form.as_p}} ou[as_table] as=<p> as table=<table>...</table>
+
+    <button class='btn btn-primary' type="submit">Salvar </button>
+</form>
+```
+

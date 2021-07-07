@@ -1,13 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAS HOME</title>
-</head>
-<body>
-    <pre>
+ {% extends 'contas/base.html' %}
+
+ {% block title %}Index {% endblock %}
+ {% block head %}
+  
+
+ <style type="text/css">
+    .imporant {color: #369;}
+    .red{color:rgb(223, 95, 148);}
+    .bold{size:12px; font-weight:bold}
+    .good{color:rgb(64, 138, 235);font-weight:lighter}
+
+
+ </style>
+
+ {% endblock %}
+ {% block content %}
+ <button type="button" id="hider">Hide Python Explanations</button>
+    <pre id="explanation">
         Usndo Template do jinja2 no Django
 def home(request):
     data={}
@@ -25,8 +34,9 @@ def home(request):
     # posso passar esses dados como parametro e serem recebidos la no meu template Html
     
     return render(request, 'contas/home.html',data)
-        
-    </pre>
+</pre> 
+
+</div>
     <h3>Seja Bem Home Time is {{now}} </h3>
 
     <h3>Lista das Transacoes</h3>
@@ -53,13 +63,31 @@ def home(request):
             </tr>
             {%endfor %}
     </table>
+ 
+<script>
+    var btn=document.getElementById('hider')
+    var to_hide=document.getElementById('explanation')
+    var hider=false;
+    btn.addEventListener('click', function (e){
+        e.preventDefault();
+        show_hide()
 
-    <style>
-        .red{color:rgb(223, 95, 148);}
-        .bold{size:12px; font-weight:bold}
-        .good{color:rgb(64, 138, 235);font-weight:lighter}
+        if(hider){
+            btn.innerHTML='Show Explanations'
+            to_hide.style.display='none'
+        }else{
+            btn.innerHTML='Hide Explanations'
+            to_hide.style.display='block'
+        }
+    })
+    function show_hide(){
+        hider =!hider;
+    }
 
+</script>
+    {% endblock %}
 
-    </style>
+     
+    
 </body>
 </html>

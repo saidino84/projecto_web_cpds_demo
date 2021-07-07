@@ -18,7 +18,7 @@ from django.urls import path
 
 
 # importando o meu view home 
-from contas.views import home,transations_list
+from contas.views import home,transations_list, nova_transacao
 
 admin.site.site_header='Administração - Associação Provincial para Desenvolvimento Sustentável  de Cabo Delgado'
 admin.site.site_title='Administração Da Associação Provincial para Desenvolvimento Sustentável  de Cabo Delgado'
@@ -26,6 +26,7 @@ admin.site.index_title='Seja Bem-Vindo Da Associação Provincial para Desenvolv
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',transations_list),
+    path('add_trans/',nova_transacao),
     path('home/', home)
 ]
 

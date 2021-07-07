@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .form import TransacaoForm
 
 # Create your views here.
 from django.http import HttpResponse
@@ -28,6 +29,14 @@ def home(request):
 
 def transations_list(request):
     data={}
-    data['transations']=Transacao.objects.all() #objects.filter/objects...
+    data['transations']=Transacao.objects.all()
+    #objects.filter/objects...
+    print(data['transations'])   
+    return render(request, 'contas/transations_list.html',data)
+
+
+
+def nova_transacao(request):
+    form =TransacaoForm()
     
-    return render(request, 'contas/transations_list.html')
+    return render(request, 'contas/form.html',{'form':form})

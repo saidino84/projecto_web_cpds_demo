@@ -6,18 +6,34 @@
 
 <h1>Listagem de Transacoes</h1>
 
-<ol>
-    {% for trans in transations %}
-    <li>
-        <h3>{{trans.descricao}}</h3>
-        <p>{{trans.valor}}   -   {{trans.categoria}}     - {{trans.data}}</p>
-        <p>{{trans.observacoes}}</p>    
-    {% endfor %}
-    </li>
-</ol>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Mount</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>observacoes</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        
+            {% for trans in transations %}
+            <tr>
+            <td>{{ trans.descricao}}</td>
+            <td>{{trans.valor}}</td>
+            <td>{{trans.categoria}}</td>
+            <td>{{trans.data}}</td>
+            <td>{{trans.observacoes}}</td>
+            </tr>
+            {% endfor %}
+        
+    </tbody>
+</table>
 
 {% endblock %}
-
+ 
 
 
  
