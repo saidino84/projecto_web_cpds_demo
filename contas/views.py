@@ -65,3 +65,10 @@ def update(request,pk):
         return redirect('url_trans_list')
     
     return render(request,'contas/form.html',{'form':form})
+
+
+def delete(request,pk):
+    transation=Transacao.objects.get(pk=pk)
+    
+    transation.delete()
+    return redirect('url_trans_list')

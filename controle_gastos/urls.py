@@ -18,7 +18,7 @@ from django.urls import path
 
 
 # importando o meu view home 
-from contas.views import home,transations_list, nova_transacao,update
+from contas.views import home,transations_list, nova_transacao,update,delete
 
 admin.site.site_header='Administração - Associação Provincial para Desenvolvimento Sustentável  de Cabo Delgado'
 admin.site.site_title='Administração Da Associação Provincial para Desenvolvimento Sustentável  de Cabo Delgado'
@@ -29,7 +29,8 @@ urlpatterns = [
     path('',transations_list,name='url_trans_list'),
     path('add_trans/',nova_transacao,name='url_add_new_trans'),
     # recebera um id de transacao
-    path('update_trans/<int:pk>/', update, name='url_update_trans')
+    path('update_trans/<int:pk>/', update, name='url_update_trans'),
+    path('delete_trans/<int:pk>/',delete,name='url_delete_trans')
     
 ]
 

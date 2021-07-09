@@ -1,7 +1,11 @@
 {% extends 'contas/base.html' %}
 
+{%block header %}
 
-
+<div class='col-ms-4'>
+    <a href={% url 'url_add_new_trans' %}>Adicionar</a>
+</div>
+{% endblock %}
 {% block content %}
 
 <h1>Listagem de Transacoes</h1>
@@ -29,7 +33,7 @@
                 <p>{{trans.observacoes}}</p>
                 <div class='col col-md'>
                     <a class='btn btn-primary' href={% url 'url_update_trans' trans.id %}>Edit</a>
-                    <a class='btn btn-danger'>Delete</a>
+                    <a class='btn btn-danger' href={% url 'url_delete_trans' trans.id%}>Delete</a>
                 </div>
                 
 

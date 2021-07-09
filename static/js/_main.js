@@ -1,3 +1,3 @@
-alert('main js  now modified?')
+console.log('main js  now modified?')
 
 

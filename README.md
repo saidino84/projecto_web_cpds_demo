@@ -355,3 +355,43 @@ urlpatterns =[
 
 ```
 
+
+#CRUD PARTE-4   DELETE
+
+```py
+contas/views.py
+
+# Para deletar tambem 'e igual ao metodo de update 
+# que necessita de um id
+def delete(request,pk):
+    transation =Transacoa.objects.get(pk=pk)
+    transation.delete()
+    return redirect('url_trans_list')
+
+#then regist it into your urls
+
+ /controle_gastos/urls.py
+ from contas.views import delete
+ path('delete_trans/',delete,name='delete_trans')
+```
+
+#Informando ao btn de delete no meu Html
+```html
+{% for trans in transations %}
+            <tr>
+            <td>{{ trans.descricao}}</td>
+            <td>{{trans.valor}}</td>
+            <td>{{trans.categoria}}</td>
+            <td>{{trans.data}}</td>
+            <td>
+                <p>{{trans.observacoes}}</p>
+                <div class='col col-md'>
+                    <a class='btn btn-primary' href={% url 'url_update_trans' trans.id %}>Edit</a>
+                    <a class='btn btn-danger' href={% url 'url_delete_trans' trans.id%}>Delete</a>
+                </div>
+                
+
+            </td>
+            </tr>
+            {% endfor %}
+```

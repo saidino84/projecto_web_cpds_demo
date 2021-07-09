@@ -24,14 +24,21 @@ Nova Transacoa Addicione Aqui
     var form =document.getElementById('form')
     for (var e in form.elements){
         // form[e.setAttribute('class','form-control')
-        console.log(e)
+        // console.log(e)
         var el=document.getElementById(form[e].id)
-        console.log(el)
+        // console.log(el)
         if(el!=null){
             el.setAttribute('class','form-control')
         }
         var val =document.getElementById('id_valor')
         val.setAttribute('class','form-control col-sm-3')
+
+        var input_date=document.getElementById('id_data')
+
+        console.log(input_date.value)
+        // input_date.setAttribute('type','date')
+
+        console.log(`${input_date} Foi encontrado  `)
     }
 </script>
  
