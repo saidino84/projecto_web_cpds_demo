@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .form import TransacaoForm
 
 # Create your views here.
@@ -37,6 +37,31 @@ def transations_list(request):
 
 
 def nova_transacao(request):
-    form =TransacaoForm()
+    'se vier com metodo post request.POST sera true ou none e retornara form.htm'
+    form =TransacaoForm(request.POST or None) 
+    
+    if form.is_valid():
+        # salvara no db
+        form.save()
+        # e retornara na listagem
+        return redirect('url_trans_list') #trans_list 'e nome que defini para adesignacao
+    # da rota transations_list
     
     return render(request, 'contas/form.html',{'form':form})
+
+
+def update(request,pk):
+    # transation=Transacao.objects.filter(pk=pk) #pega mais k um objecto
+    transation=Transacao.objects.get(pk=pk) 
+    
+    
+    # aqui instacio um formulario preechendoos campos do query acima ai transation
+    # que pegarei atraveis da filtracao do seu primary_key
+    # aqui vou preencher o form os dados que foram retornados
+    form =TransacaoForm(request.POST or None, instance=transation)
+    
+    if form.is_valid():
+        form.save()
+        return redirect('url_trans_list')
+    
+    return render(request,'contas/form.html',{'form':form})

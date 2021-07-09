@@ -18,16 +18,19 @@ from django.urls import path
 
 
 # importando o meu view home 
-from contas.views import home,transations_list, nova_transacao
+from contas.views import home,transations_list, nova_transacao,update
 
 admin.site.site_header='Administração - Associação Provincial para Desenvolvimento Sustentável  de Cabo Delgado'
 admin.site.site_title='Administração Da Associação Provincial para Desenvolvimento Sustentável  de Cabo Delgado'
 admin.site.index_title='Seja Bem-Vindo Da Associação Provincial para Desenvolvimento Sustentável  de Cabo Delgado'
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',transations_list),
-    path('add_trans/',nova_transacao),
-    path('home/', home)
+    path('home/', home,name='url_home'),
+    path('',transations_list,name='url_trans_list'),
+    path('add_trans/',nova_transacao,name='url_add_new_trans'),
+    # recebera um id de transacao
+    path('update_trans/<int:pk>/', update, name='url_update_trans')
+    
 ]
 
 # EStrutura do projecto

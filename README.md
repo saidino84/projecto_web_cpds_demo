@@ -179,6 +179,9 @@ class Transacao(models.Model):
         fields = ['data','descricao','valor','categoria','observacoes']
 
         # atribuido html atributs para ser capturado com css/js
+        '''TextInput,Select,Textarea
+
+        '''
         widgets={
             'descricao':TextInput(attrs={'class':'form-control'}),
             'valor':TextInput(attrs={'class':'form-control'}),
@@ -205,7 +208,15 @@ observacoes = models.TextField(null=True,blank=True) #campo nao obrigatorio
     # para o um arquivo conatas/templates/contas/form.html
 from .forms import TransacaoForm
 def nova_transacao(request):
-    form =TransacaoForm()
+    'se vier com metodo post request.POST sera true ou none e retornara form.htm'
+    form =TransacaoForm(request.POST or None) 
+    
+    if form.is_valid():
+        # salvara no db
+        form.save()
+        # e retornara na listagem
+        return redirect('url_trans_list') #trans_list 'e nome que defini para adesignacao
+    # da rota transations_list
     
     return render(request, 'contas/form.html',{'form':form})
 
@@ -220,5 +231,127 @@ just add :
 
     <button class='btn btn-primary' type="submit">Salvar </button>
 </form>
+
+
+a dicionei um js para capturar os campos de formular e atribuir setAttribute('class','form-control')
+para assim o bootstrap pegalos
+
+
+```
+
+#para update do nosso CRUDE criarei um url que recebera um parametro que sera 
+id primary key da transacao
+
+```py
+mesmo k seu model nao tenhas definido atributo pk o django ja se encarrega de passar esse identificador portanto nao te preocupes se nao o veres pk nu model
+
+#:contas/views.py
+def update(request,pk):
+    '''
+    :params pk= e' id da transacao 
+    '''
+    # recupero objecto nu banco
+    # transation=Transacao.objects.filter(pk=pk) #pega mais k um objecto
+    transation=Transacao.objects.get(pk=pk) 
+    
+    
+    # aqui instacio um formulario preechendoos campos do query acima ai transation
+    # que pegarei atraveis da filtracao do seu primary_key
+    # aqui vou preencher o form os dados que foram retornados
+    form =TransacaoForm(request.POST or None, instance=transation)
+    
+    if form.is_valid():
+        form.save()
+        return redirect('url_trans_list')
+    
+    '''
+    Aqui retornando o form.html ja preechido com os dados feitos query no database
+    '''
+    return render(request,'contas/form.html',{'form':form})
+
+#: urls.py
+# pk=>primary key
+from contas.views import actualizar
+urlpatterns =[
+    path('update/<int:pk>/',actualizar, name='upadte_trans')
+]
+"http://192.168.43.66/update/2/"
+
+```
+# Fazedo click na transacoa e ele redirecionar para apagina de update
+# a transacoa clicada
+#NO TEMPLATE DE LIST_TRANSATIONS
+>/contas
+    /templates
+        /contas
+            /transations_list.html
+
+```html
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Mount</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>observacoes</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        
+            {% for trans in transations %}
+            <tr>
+            <td>{{ trans.descricao}}</td>
+            <td>{{trans.valor}}</td>
+            <td>{{trans.categoria}}</td>
+            <td>{{trans.data}}</td>
+            <td>
+                <p>{{trans.observacoes}}</p>
+                <div class='col col-md'>
+                    <a class='btn btn-primary' href={% url 'url_update_trans' trans.id %}>Edit</a>
+                    <a class='btn btn-danger'>Delete</a>
+                </div>
+                
+
+            </td>
+            </tr>
+            {% endfor %}
+        
+    </tbody>
+</table>
+
+<style>
+    .col-md{
+        /* background:#bfd1e6; */
+        display:flex;
+        flex-direction:row;
+        justify-content: flex-end;/*flex-start|flext-start|center-aroud|space-evenly|space-between;/*/
+
+    }
+</style>
+
+```
+
+
+#APLICANDO BOOTSTRAP CSS NO DJANGO FORM ATRAVES DO JAVASCRIPT
+```js
+// - Aplicando bootstrap css na django form
+
+    var form =document.getElementById('form')
+    for (var e in form.elements){
+        // form[e.setAttribute('class','form-control')
+        console.log(e)
+        var el=document.getElementById(form[e].id)
+        console.log(el)
+        if(el!=null){
+            el.setAttribute('class','form-control')
+        }
+        var val =document.getElementById('id_valor')
+        val.setAttribute('class','form-control col-sm-3')
+    }
+
 ```
 

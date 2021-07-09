@@ -13,23 +13,28 @@ Nova Transacoa Addicione Aqui
     <button class='btn btn-primary' type="submit">Salvar </button>
 </form>
 <style>
-    #form-control{
+    .form-control{
         color:blue;
     }
 </style>
+
+
+<!-- Aplicando bootstrap css na django form -->
 <script>
     var form =document.getElementById('form')
-    var dados=[]
     for (var e in form.elements){
-        console.log(form[e])
-        var elem=document.getElementById(form[e].id)
-        if(elem != null)elem.setAttribute('class','form-control')
-
-
-        console.log(elem)
-        
+        // form[e.setAttribute('class','form-control')
+        console.log(e)
+        var el=document.getElementById(form[e].id)
+        console.log(el)
+        if(el!=null){
+            el.setAttribute('class','form-control')
+        }
+        var val =document.getElementById('id_valor')
+        val.setAttribute('class','form-control col-sm-3')
     }
 </script>
+ 
 {% endblock %}
 
  

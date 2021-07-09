@@ -25,14 +25,34 @@
             <td>{{trans.valor}}</td>
             <td>{{trans.categoria}}</td>
             <td>{{trans.data}}</td>
-            <td>{{trans.observacoes}}</td>
+            <td>
+                <p>{{trans.observacoes}}</p>
+                <div class='col col-md'>
+                    <a class='btn btn-primary' href={% url 'url_update_trans' trans.id %}>Edit</a>
+                    <a class='btn btn-danger'>Delete</a>
+                </div>
+                
+
+            </td>
             </tr>
             {% endfor %}
         
     </tbody>
 </table>
 
+<style>
+    .col-md{
+        /* background:#bfd1e6; */
+        display:flex;
+        flex-direction:row;
+        justify-content: flex-end;/*flex-start|flext-start|center-aroud|space-evenly|space-between;/*/
+
+    }
+</style>
+
 {% endblock %}
+
+
  
 
 

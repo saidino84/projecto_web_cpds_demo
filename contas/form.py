@@ -1,4 +1,4 @@
-from django.forms import ModelForm,TextInput
+from django.forms import ModelForm,TextInput,DateInput
 from .models import Transacao
 
 class TransacaoForm(ModelForm):
@@ -7,9 +7,8 @@ class TransacaoForm(ModelForm):
         fields = ['data','descricao','valor','categoria','observacoes']
  
     widgets={
-        'title':TextInput(attrs={'class':'form-control'}),
         'valor':TextInput(attrs={'class':'form-control'}),
-        'data':TextInput(attrs={'class':'form-control'}),
+        'data':DateInput(attrs={'class':'form-control'}),
         'categoria':TextInput(attrs={'class':'form-control'}),
         'observacoes':TextInput(attrs={'class':'form-control'})
              }

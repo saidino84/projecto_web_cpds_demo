@@ -21,6 +21,7 @@
 
 </head>
 <body>
+    <div class="jumbotron jumbotron-sm">
     <div> 
         {% block header %}
         <p>Header</p>
@@ -32,11 +33,28 @@
 
         {% endblock %}
  </div>
-<div class="footer">
+<div class="footer col-md-4">
+    <legend><span class="glyphicon glyphicon-globe">Saidino Info</span></legend>
+    <address>
+        <strong>
+            Cariaco Pemba
+        </strong>
+    </address>
     {% block footer %}
     &copy; Copyright 2021 by  Saidino <a href="http://github.com/saidino84/">you</a>.
     {% endblock %}
 </div>
+
+</div>
+
+<script>
+
+    var form = document.getElementById('form');
+
+    for (var element in form.element){
+        console.log(element)
+    }
+</script>
     
 </body>
 </html>
